@@ -66,13 +66,13 @@ public class AnnotationController
     private final Boolean isRegionAnnotationEnabled; 
 
     @Autowired
-    public AnnotationController(VariantAnnotationService hgvsVariantAnnotationService,
+    public AnnotationController(VariantAnnotationService regionVariantAnnotationService,
                                 VariantAnnotationService dbsnpVariantAnnotationService,
                                 GenomicLocationAnnotationService genomicLocationAnnotationService,
                                 NotationConverter notationConverter,
                                 @Value("${gn_vep.region.url:}") String vepRegionUrl)
     {
-        this.hgvsAnnotationService = hgvsVariantAnnotationService;
+        this.hgvsAnnotationService = regionVariantAnnotationService;
         this.dbsnpAnnotationService = dbsnpVariantAnnotationService;
         this.genomicLocationAnnotationService = genomicLocationAnnotationService;
         this.notationConverter = notationConverter;

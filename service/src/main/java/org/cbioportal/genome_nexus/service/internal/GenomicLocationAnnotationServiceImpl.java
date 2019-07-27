@@ -63,7 +63,6 @@ public class GenomicLocationAnnotationServiceImpl implements GenomicLocationAnno
                                                 NotationConverter notationConverter,
                                                 // Lazy autowire services used for enrichment,
                                                 // otherwise we are getting circular dependency issues
-                                                @Lazy VariantAnnotationService hgvsVariantAnnotationService,
                                                 @Lazy VariantAnnotationService regionVariantAnnotationService)
 
     {
@@ -74,7 +73,7 @@ public class GenomicLocationAnnotationServiceImpl implements GenomicLocationAnno
             this.genomicLocationToVariantFormat = notationConverter::genomicToEnsemblRestRegion;
             this.genomicLocationsToVariantFormats = notationConverter::genomicToEnsemblRestRegion;
         } else {
-            this.variantAnnotationService = hgvsVariantAnnotationService;
+            this.variantAnnotationService = regionVariantAnnotationService;
             this.genomicLocationToVariantFormat = notationConverter::genomicToHgvs;
             this.genomicLocationsToVariantFormats = notationConverter::genomicToHgvs;
 
