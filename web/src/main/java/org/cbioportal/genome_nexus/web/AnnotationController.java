@@ -62,11 +62,11 @@ public class AnnotationController
     private final GenomicLocationAnnotationService genomicLocationAnnotationService;
 
     @Autowired
-    public AnnotationController(VariantAnnotationService hgvsVariantAnnotationService,
+    public AnnotationController(VariantAnnotationService regionVariantAnnotationService,
                                 VariantAnnotationService dbsnpVariantAnnotationService,
                                 GenomicLocationAnnotationService genomicLocationAnnotationService)
     {
-        this.hgvsAnnotationService = hgvsVariantAnnotationService;
+        this.hgvsAnnotationService = regionVariantAnnotationService;
         this.dbsnpAnnotationService = dbsnpVariantAnnotationService;
         this.genomicLocationAnnotationService = genomicLocationAnnotationService;
     }

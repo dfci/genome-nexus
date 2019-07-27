@@ -38,6 +38,7 @@ import org.cbioportal.genome_nexus.persistence.HotspotRepository;
 import org.cbioportal.genome_nexus.service.CancerHotspotService;
 import org.cbioportal.genome_nexus.service.VariantAnnotationService;
 import org.cbioportal.genome_nexus.component.annotation.NotationConverter;
+import org.cbioportal.genome_nexus.service.cached.CachedVariantRegionAnnotationFetcher;
 import org.cbioportal.genome_nexus.service.exception.CancerHotspotsWebServiceException;
 import org.cbioportal.genome_nexus.service.exception.VariantAnnotationNotFoundException;
 import org.cbioportal.genome_nexus.service.exception.VariantAnnotationWebServiceException;
@@ -59,12 +60,12 @@ public class CancerHotspotServiceImpl implements CancerHotspotService
 
     @Autowired
     public CancerHotspotServiceImpl(HotspotRepository hotspotRepository,
-                                    VariantAnnotationService hgvsVariantAnnotationService,
+                                    VariantAnnotationService regionVariantAnnotationService,
                                     HotspotFilter hotspotFilter,
                                     NotationConverter notationConverter)
     {
         this.hotspotRepository = hotspotRepository;
-        this.variantAnnotationService = hgvsVariantAnnotationService;
+        this.variantAnnotationService = regionVariantAnnotationService;
         this.hotspotFilter = hotspotFilter;
         this.notationConverter = notationConverter;
     }
@@ -166,7 +167,7 @@ public class CancerHotspotServiceImpl implements CancerHotspotService
         throws CancerHotspotsWebServiceException
     {
         // convert genomic location to hgvs notation (there is always 1-1 mapping)
-        Map<String, GenomicLocation> variantToGenomicLocation = notationConverter.genomicToHgvsMap(genomicLocations);
+        Map<String, GenomicLocation> variantToGenomicLocation = notationConverter.genomicToEnsemblRestRegionMap(genomicLocations);
 
         // query hotspots service by variant
         List<AggregatedHotspots> hotspots = this.getHotspotAnnotationsByVariants(
